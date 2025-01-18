@@ -13,3 +13,17 @@ const data = ["sadam", "sadam", 1, 1];
 var filter = _.uniq(data);
 console.log(filter);
 console.log(_.isArray(data));
+
+
+// convert JSONString into jsonObject
+
+const jsonString = `{ "name": "sadam", "age": 21 }`;
+const JsonObject = JSON.parse(jsonString);
+console.log(JsonObject);
+console.log(JsonObject.name);
+
+// convert JSONObject into jsonStrig
+
+const jsonObject = { name: "sadam", age: 21 };
+const JsonSting = JSON.stringify(jsonObject);
+console.log(JsonSting);
