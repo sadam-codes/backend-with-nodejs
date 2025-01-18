@@ -1,4 +1,7 @@
-console.log("server file is running");
+const fs = require("fs");
+const os = require("os");
 
-const sadam = (a, b) => a + b;
-console.log(sadam(2, 4));
+const user = os.userInfo();
+console.log(user);
+console.log(user.username);
+fs.appendFile("greeting.text", "Aoa Sadam \n", () => console.log("file is created"));
