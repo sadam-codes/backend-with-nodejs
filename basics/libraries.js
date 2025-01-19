@@ -9,11 +9,10 @@ fs.appendFile("greeting.text", "Aoa Sadam \n", () =>
   console.log("file is created")
 );
 
-const data = ["sadam", "sadam", 1, 1];
+const data = ["sadam", "Ali", "sadam", 1, 1, "Ali"];
 var filter = _.uniq(data);
 console.log(filter);
 console.log(_.isArray(data));
-
 
 // convert JSONString into jsonObject
 
