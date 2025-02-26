@@ -1,4 +1,5 @@
 const express = require("express");
+const db = require('./db')
 const app = express();
 
 app.get("/", (req, res) => {
@@ -19,6 +20,9 @@ app.get("/aboutus", (req, res) => {
 
 app.get("/contact", (req, res) => {
   res.send("Contact Page");
+});
+app.post("/person", (req, res) => {
+  res.send("data is saved");
 });
 app.listen(3000, () => {
   const PORT = 3000;
