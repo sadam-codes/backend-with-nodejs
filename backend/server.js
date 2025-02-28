@@ -18,23 +18,37 @@ app.get("/aboutus", (req, res) => {
 
 // Save Person Data (POST)
 app.post("/person", async (req, res) => {
+  // 1st approach
+  
+  // try {
+  //   const { name, age, role, mobile, email, address, salary } = req.body;
+
+  //   const newPerson = new person({
+  //     name: name,
+  //     age: age,
+  //     role: role,
+  //     mobile: mobile,
+  //     email: email,
+  //     address: address,
+  //     salary: salary,
+  //   });
+  //   await newPerson.save();
+  //   res.status(201).json({ message: "Data saved successfully", newPerson });
+
+  // } catch (error) {
+  //   res.status(400).json({ error: error.message });
+  // }
+
+  // 2nd approach
   try {
-    const { name, age, role, mobile, email, address, salary } = req.body;
-
-    const newPerson = new person({
-      name: name,
-      age: age,
-      role: role,
-      mobile: mobile,
-      email: email,
-      address: address,
-      salary: salary,
-    });
-    await newPerson.save();
-    res.status(201).json({ message: "Data saved successfully", newPerson });
-
+    const data = req.body;
+    const newPerson = new person(data)
+    const response = await newPerson.save()
+    console.log('data saved')
+    res.status(200).json(response)
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error)
+    res.status(500).json({ error: "Internal server error" })
   }
 });
 app.listen(3000, () => {
