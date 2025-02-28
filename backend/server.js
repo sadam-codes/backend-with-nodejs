@@ -19,7 +19,7 @@ app.get("/aboutus", (req, res) => {
 // Save Person Data (POST)
 app.post("/person", async (req, res) => {
   // 1st approach
-  
+
   // try {
   //   const { name, age, role, mobile, email, address, salary } = req.body;
 
@@ -51,6 +51,18 @@ app.post("/person", async (req, res) => {
     res.status(500).json({ error: "Internal server error" })
   }
 });
+
+// get data
+app.get("/persons", async (req, res) => {
+  try {
+    const data = await person.find({ age: { $lte: 33 } }, { name: 1, _id: 0 });
+    res.status(200).json(data)
+  } catch (error) {
+    console.error("Error fetching names:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(3000, () => {
   const PORT = 3000;
   console.log(`server port ${PORT} pr zinda hai`);
