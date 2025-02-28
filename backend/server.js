@@ -55,10 +55,14 @@ app.post("/person", async (req, res) => {
 // get data
 app.get("/persons", async (req, res) => {
   try {
-    const data = await person.find({ age: { $lte: 33 } }, { name: 1, _id: 0 });
+    const data = await person.find({ name: "Sadam" });
+    // Check if data array is empty
+    if (data.length === 0) {
+      return res.status(404).json({ error: "No persons found" });
+    }
     res.status(200).json(data)
   } catch (error) {
-    console.error("Error fetching names:", error);
+    console.error("Error fetching data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
