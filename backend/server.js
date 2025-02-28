@@ -55,7 +55,7 @@ app.post("/person", async (req, res) => {
 // get data
 app.get("/persons", async (req, res) => {
   try {
-    const data = await person.find({ name: "Sadam" });
+    const data = await person.find({ name: "Sadam Muneer" });
     // Check if data array is empty
     if (data.length === 0) {
       return res.status(404).json({ error: "No persons found" });
@@ -67,6 +67,27 @@ app.get("/persons", async (req, res) => {
   }
 });
 
+// update data
+app.patch("/persons", async (req, res) => {
+  try {
+    const data = await person.updateMany({ name: "Sadam" }, { $set: { name: "Sadam Muneer" } });
+    res.status(200).json(data)
+  } catch (error) {
+    console.error("Error updating data:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// delete data
+app.put("/persons", async (req, res) => {
+  try {
+    const data = await person.deleteMany({ name: "John Doe" });
+    res.status(200).json(data)
+  } catch (error) {
+    console.error("Error deleting data:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 app.listen(3000, () => {
   const PORT = 3000;
   console.log(`server port ${PORT} pr zinda hai`);
