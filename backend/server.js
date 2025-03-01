@@ -66,7 +66,27 @@ app.get("/persons", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+// parametrized API
+app.get("/persons/:workType", async (req, res) => {
+  try {
+    const workType = req.params.workType;
+    const validRoles = ['chef', 'manager', 'waiter']
+    if (validRoles.includes(workType)) {
+      const response = await person.find({ role: workType })
+      if (response.length === 0) {
+        return res.status(404).json({ error: `No persons found for the role ${workType}` });
+      }
+      res.status(200).json(response)
+    }
+    else {
+      return res.status(404).json({ error: "Invalid work type" });
+    }
 
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
 // update data
 app.patch("/persons", async (req, res) => {
   try {
@@ -79,7 +99,7 @@ app.patch("/persons", async (req, res) => {
 });
 
 // delete data
-app.put("/persons", async (req, res) => {
+app.delete("/persons", async (req, res) => {
   try {
     const data = await person.deleteMany({ name: "John Doe" });
     res.status(200).json(data)
