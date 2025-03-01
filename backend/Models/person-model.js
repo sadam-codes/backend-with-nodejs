@@ -30,9 +30,9 @@ const PersonSchema = new mongoose.Schema({
     },
     salary: {
         type: Number,
-      
+
     }
-})
+}, { timestamps: true })
 // Model
 const person = mongoose.model('persons', PersonSchema);
 module.exports = person;
