@@ -36,3 +36,8 @@ const PersonSchema = new mongoose.Schema({
 // Model
 const person = mongoose.model('persons', PersonSchema);
 module.exports = person;
+
+
+
+
+db.myLife.find({ dreams: { $all: [true] } })

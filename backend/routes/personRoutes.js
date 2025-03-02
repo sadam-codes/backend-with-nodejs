@@ -2,18 +2,6 @@ const express = require('express')
 const router = express.Router()
 const person = require('../Models/person-model')
 
-router.get("/aboutus", (req, res) => {
-    const details = [
-        {
-            name: "Sadam",
-            age: 22,
-            dept: "CS",
-            section: "A",
-        },
-    ];
-    res.send(details);
-});
-
 // Save Person Data (POST)
 router.post("/", async (req, res) => {
     // 1st approach
@@ -42,7 +30,7 @@ router.post("/", async (req, res) => {
         const data = req.body;
         const newPerson = new person(data)
         const response = await newPerson.save()
-        console.log('data saved')
+        console.log('data has been saved')
         res.status(200).json(response)
     } catch (error) {
         console.log(error)
