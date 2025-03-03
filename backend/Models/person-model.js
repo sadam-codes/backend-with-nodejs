@@ -30,7 +30,7 @@ const PersonSchema = new mongoose.Schema({
     },
     salary: {
         type: Number,
-
+        required: [true, "Salary is Required"],
     }
 }, { timestamps: true })
 // Model
