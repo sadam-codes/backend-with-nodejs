@@ -25,6 +25,23 @@ router.get('/', async (req, res) => {
     }
 })
 
+// get
+router.get('/:category', async (req, res) => {
+    try {
+        const category = req.params.category;
+        const allCategories = ['Burger', 'Pizza', 'Drinks', 'Desserts', 'Others']
+        if (allCategories.includes(category)) {
+            const data = await menu.find({ category: category })
+            res.status(200).json(data)
+        }
+        else {
+            res.status(200).json(`Data not found with ${category}`)
+        }
+
+    } catch (error) {
+        res.status(500).json("internal server error", error)
+    }
+})
 //update
 router.patch('/', async (req, res) => {
     try {
