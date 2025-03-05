@@ -84,10 +84,14 @@ router.patch("/", async (req, res) => {
 });
 
 // delete data
-router.delete("/person", async (req, res) => {
+router.delete("/", async (req, res) => {
     try {
-        const data = await person.deleteMany({ name: "John Doe" });
-        res.status(200).json(data)
+        const { _id } = req.body
+        const data = await person.deleteMany({ _id });
+        res.status(200).json({ message: "person deleted successfully", data });
+        if (!_id) {
+            return res.status(400).json({ error: "person id is required for deletion" });
+        }
     } catch (error) {
         console.error("Error deleting data:", error);
         res.status(500).json({ error: "Internal server error" });

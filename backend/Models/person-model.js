@@ -11,7 +11,7 @@ const PersonSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['chef', 'manager', 'waiter'], // Job role should be here
+        enum: ['chef', 'manager', 'waiter'], 
         required: [true, "Role is Required"]
     },
     mobile: {

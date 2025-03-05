@@ -53,19 +53,16 @@ router.patch('/', async (req, res) => {
 //delete
 router.delete('/', async (req, res) => {
     try {
-        const { name } = req.body;
-
-        if (!name) {
-            return res.status(400).json({ error: "Menu item name is required for deletion" });
-        }
-
-        const data = await menu.deleteMany({ name });
-
+        const { _id } = req.body;
+        const data = await menu.deleteMany({ _id });
         if (data.deletedCount === 0) {
             return res.status(404).json({ message: "No matching menu items found to delete" });
         }
-
         res.status(200).json({ message: "Menu items deleted successfully", data });
+        if (!_id) {
+            return res.status(400).json({ error: "Menu item id is required for deletion" });
+        }
+
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error", details: error.message });
     }
