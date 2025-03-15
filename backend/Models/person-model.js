@@ -11,7 +11,7 @@ const PersonSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['chef', 'manager', 'waiter'], 
+        enum: ['chef', 'manager', 'waiter'],
         required: [true, "Role is Required"]
     },
     mobile: {
@@ -31,6 +31,14 @@ const PersonSchema = new mongoose.Schema({
     salary: {
         type: Number,
         required: [true, "Salary is Required"],
+    },
+    username: {
+        type: String,
+        required: [true, "username is Required"],
+    },
+    password: {
+        type: String,
+        required: [true, "password is Required"],
     }
 }, { timestamps: true })
 // Model
