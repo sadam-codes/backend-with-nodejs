@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
         const data = await menu.find().countDocuments();
         res.status(200).json(data)
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error", details: error.message })
+        res.status(500).json({ error: "Internal Server Error ! ", details: error.message })
     }
 })
 
