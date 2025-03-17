@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const person = require('../Models/person-model')
-
+const passport = require('passport')
+const localStrategy = require('passport-local').Strategy;
 // Save Person Data (POST)
 router.post("/", async (req, res) => {
     // 1st approach
@@ -96,6 +97,18 @@ router.delete("/", async (req, res) => {
         console.error("Error deleting data:", error);
         res.status(500).json({ error: "Internal server error" });
     }
+    // authentication
+    app.use(new localStrategy(async (username, password, done) => {
+        try {
+            console.log('Credentials Received', username, password);
+            const user = person.findOne({ username: username })
+            if (!user) {
+                return done(null, false, { message: "Incorrect username" })
+            }
+        } catch (error) {
+
+        }
+    }))
 });
 
 module.exports = router
