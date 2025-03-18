@@ -97,16 +97,16 @@ router.delete("/", async (req, res) => {
         console.error("Error deleting data:", error);
         res.status(500).json({ error: "Internal server error" });
     }
-    // authentication
-    app.use(new localStrategy(async (username, password, done) => {
+    // authentication for user
+    app.use(new localStrategy(async (USERNAME, password, done) => {
         try {
-            console.log('Credentials Received', username, password);
-            const user = person.findOne({ username: username })
+            console.log('Credentials Received', USERNAME, password);
+            const user = person.findOne({ username: USERNAME })
             if (!user) {
+                // done takes 3 parameters done(error,user,info)
                 return done(null, false, { message: "Incorrect username" })
             }
         } catch (error) {
-
         }
     }))
 });
