@@ -2,11 +2,11 @@ const express = require("express");
 const db = require('./db')
 require('dotenv').config()
 const app = express();
-// const person = require('./Models/person-model')
+const passport = require('passport')
 app.use(express.json());
 
 
-
+app.use(passport.initialize())
 
 //
 const PORT = process.env.PORT || 5000
@@ -20,9 +20,19 @@ const logRequest = (req, res, next) => {
 }
 
 app.use(logRequest)
-app.get('/', logRequest, (req, res) => {
-  res.send("Home page")
-})
+app.get('/', (req, res, next) => {
+  const { username, password } = req.query; // Extract from query params
+
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err) return res.status(500).json({ error: "Internal Server Error" });
+
+    if (!user) return res.status(401).json({ error: info.message || "Unauthorized" });
+
+    return res.status(200).json({ message: "Login successful", user });
+  })({ body: { username, password } }, res, next); // Pass manually to Passport
+});
+
+
 const personRoutes = require('./routes/personRoutes')
 app.use('/person', personRoutes)
 const menuRoutes = require('./routes/menu-routes')
