@@ -20,7 +20,7 @@ const logRequest = (req, res, next) => {
 }
 
 app.use(logRequest)
-app.get('/', (req, res, next) => {
+app.get('/login', (req, res, next) => {
   const { username, password } = req.query; // Extract from query params
 
   passport.authenticate('local', { session: false }, (err, user, info) => {
