@@ -26,12 +26,11 @@ app.get('/login', (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err) return res.status(500).json({ error: "Internal Server Error" });
 
-    if (!user) return res.status(401).json({ error: info.message || "Unauthorized" });
+    if (!user) return res.status(401).json({ error: info.message || "Unauthorized Access" });
 
     return res.status(200).json({ message: "Login successful", user });
-  })({ body: { username, password } }, res, next); // Pass manually to Passport
+  })({ body: { username, password } }, res, next);
 });
-
 
 const personRoutes = require('./routes/personRoutes')
 app.use('/person', personRoutes)

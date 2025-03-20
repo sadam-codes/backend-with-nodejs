@@ -100,7 +100,8 @@ router.delete("/", async (req, res) => {
     }
 
 });
-// authentication for user
+
+// User Authentication
 passport.use(new localStrategy(
     async (username, password, done) => {
         try {
@@ -113,7 +114,7 @@ passport.use(new localStrategy(
                 return done(null, false, { message: "Incorrect username" });
             }
 
-            const isMatchedPassword = user.password === password; // Direct comparison
+            const isMatchedPassword = user.password === password;
             if (!isMatchedPassword) {
                 console.log("Password mismatch!");
                 return done(null, false, { message: "Incorrect password" });
